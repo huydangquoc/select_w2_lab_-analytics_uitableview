@@ -18,9 +18,13 @@ class PersonCell: UITableViewCell {
     
     var person: Person? {
         didSet {
-            nameLabel.text = person?.name
-            birthdateLabel.text = person?.birthdate
-            heightLabel.text = "\((person?.height)!) cm"
+            nameLabel.text = person?.name ?? ""
+            birthdateLabel.text = person?.birthdate ?? ""
+            if let height = person?.height?.integerValue {
+                heightLabel.text = "\(height) cm"
+            } else {
+                heightLabel.text = ""
+            }
             avatarImageView.setImageWithURL((person?.avatarImageURL)!)
         }
     }

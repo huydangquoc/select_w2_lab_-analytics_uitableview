@@ -12,9 +12,10 @@ class PersonsViewController: UIViewController {
 
     var persons: [Person]?
     var offset = 0
-    var limit = 2
+    let limit = 2
     
     @IBOutlet weak var tableView: UITableView!
+    @IBOutlet weak var loadMoreButton: UIButton!
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -23,7 +24,9 @@ class PersonsViewController: UIViewController {
         tableView.estimatedRowHeight = 100
         tableView.dataSource = self
         tableView.delegate = self
+        tableView.tableFooterView = UIView()
         
+        loadMoreButton.enabled = false
         // load data
         FancyClient.loadPerson(offset: offset, limit: limit) { (persons: [Person]?, error: NSError?) in
             guard persons != nil else {
@@ -31,8 +34,11 @@ class PersonsViewController: UIViewController {
                 return
             }
             self.persons = persons
-            self.tableView.reloadData()
-            self.offset += 1
+            dispatch_async(dispatch_get_main_queue(), { () -> Void in
+                self.tableView.reloadData()
+                self.loadMoreButton.enabled = true
+            })
+            self.offset += self.limit
         }
     }
 
@@ -41,16 +47,43 @@ class PersonsViewController: UIViewController {
         // Dispose of any resources that can be recreated.
     }
 
-    /*
     // MARK: - Navigation
 
     // In a storyboard-based application, you will often want to do a little preparation before navigation
     override func prepareForSegue(segue: UIStoryboardSegue, sender: AnyObject?) {
-        // Get the new view controller using segue.destinationViewController.
-        // Pass the selected object to the new view controller.
+        
+        if segue.identifier == "showPersonDetail" {
+            let personDetailView = segue.destinationViewController as! PersonDetailViewController
+            let indexPath = tableView.indexPathForCell(sender as! UITableViewCell)!
+            personDetailView.person = persons![indexPath.row]
+        }
     }
-    */
-
+    
+    @IBAction func onLoadMore(sender: AnyObject) {
+        loadMoreButton.enabled = false
+        FancyClient.loadPerson(offset: offset, limit: limit) { (persons: [Person]?, error: NSError?) in
+            guard persons != nil else {
+                print(error)
+                self.loadMoreButton.enabled = true
+                return
+            }
+            
+            if self.persons != nil {
+                self.persons!.appendContentsOf(persons!)
+            }
+            
+            dispatch_async(dispatch_get_main_queue(), { () -> Void in
+                self.tableView.reloadData()
+                let numberOfRows = self.persons!.count
+                if numberOfRows > 0 {
+                    let indexPath = NSIndexPath(forRow: numberOfRows-1, inSection: 0)
+                    self.tableView.scrollToRowAtIndexPath(indexPath, atScrollPosition: UITableViewScrollPosition.Bottom, animated: true)
+                }
+                self.loadMoreButton.enabled = true
+            })
+            self.offset += self.limit
+        }
+    }
 }
 
 extension PersonsViewController: UITableViewDataSource {

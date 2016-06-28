@@ -17,6 +17,7 @@
 		6BA7CB421D2241C800667704 /* PersonCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6BA7CB411D2241C800667704 /* PersonCell.swift */; };
 		6BA7CB461D2244FE00667704 /* PersonsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6BA7CB451D2244FE00667704 /* PersonsViewController.swift */; };
 		6BA7CB491D224F3800667704 /* Person.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6BA7CB481D224F3800667704 /* Person.swift */; };
+		6BA7CB4B1D225E7600667704 /* PersonDetailViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6BA7CB4A1D225E7500667704 /* PersonDetailViewController.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -33,6 +34,7 @@
 		6BA7CB411D2241C800667704 /* PersonCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PersonCell.swift; sourceTree = "<group>"; };
 		6BA7CB451D2244FE00667704 /* PersonsViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PersonsViewController.swift; sourceTree = "<group>"; };
 		6BA7CB481D224F3800667704 /* Person.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Person.swift; sourceTree = "<group>"; };
+		6BA7CB4A1D225E7500667704 /* PersonDetailViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PersonDetailViewController.swift; sourceTree = "<group>"; };
 		E2F81AFEED36E07E8FD3626F /* Pods-select_w2_lab.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-select_w2_lab.debug.xcconfig"; path = "Pods/Target Support Files/Pods-select_w2_lab/Pods-select_w2_lab.debug.xcconfig"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
@@ -104,6 +106,7 @@
 			isa = PBXGroup;
 			children = (
 				6BA7CB451D2244FE00667704 /* PersonsViewController.swift */,
+				6BA7CB4A1D225E7500667704 /* PersonDetailViewController.swift */,
 			);
 			name = ViewControllers;
 			sourceTree = "<group>";
@@ -260,6 +263,7 @@
 				6BA7CB421D2241C800667704 /* PersonCell.swift in Sources */,
 				6BA7CB271D222BCE00667704 /* AppDelegate.swift in Sources */,
 				6BA7CB461D2244FE00667704 /* PersonsViewController.swift in Sources */,
+				6BA7CB4B1D225E7600667704 /* PersonDetailViewController.swift in Sources */,
 				6BA7CB3A1D2231FC00667704 /* FancyClient.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

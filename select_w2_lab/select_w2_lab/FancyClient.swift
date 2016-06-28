@@ -30,16 +30,32 @@ class FancyClient {
             }
             
             do {
-                let data = try NSJSONSerialization.JSONObjectWithData(data!, options: .MutableContainers) as! NSMutableArray
-                var persons = [Person]()
-                for p in data {
-                    let dictionary = p as! NSDictionary
-                    persons.append(Person(dictionary: dictionary))
-                }
-                completion(persons, nil)
+                let data = try NSJSONSerialization.JSONObjectWithData(data!, options: [])
                 
+                var persons = [Person]()
+                // case normal
+                if let personsData = data as? NSMutableArray {
+                    for p in personsData {
+                        let dictionary = p as! NSDictionary
+                        persons.append(Person(dictionary: dictionary))
+                    }
+                    completion(persons, nil)
+                // case problem with server
+                } else if let errorData = data as? NSDictionary {
+                    print(errorData)
+                    completion(persons, nil)
+                // other uncovered cases
+                } else {
+                    print(data)
+                    completion(persons, nil)
+                }
             } catch let error as NSError{
-                completion(nil, error)
+                if error.domain == "NSCocoaErrorDomain" && error.code == 3840 {
+                    print("Likely reach end of list")
+                    completion([Person](), nil)
+                } else {
+                    completion(nil, error)
+                }
             }
         }
         task.resume()
