@@ -7,6 +7,7 @@
 //
 
 import UIKit
+import Answers
 
 class PersonsViewController: UIViewController {
 
@@ -25,6 +26,8 @@ class PersonsViewController: UIViewController {
         tableView.dataSource = self
         tableView.delegate = self
         tableView.tableFooterView = UIView()
+        
+        loadMoreButton.addTarget(self, action: #selector(self.userTapLoadMore), forControlEvents: .TouchUpInside)
         
         loadMoreButton.enabled = false
         // load data
@@ -57,6 +60,14 @@ class PersonsViewController: UIViewController {
             let indexPath = tableView.indexPathForCell(sender as! UITableViewCell)!
             personDetailView.person = persons![indexPath.row]
         }
+    }
+    
+    func userTapLoadMore() {
+        
+        // TODO: Move this method and customize the name and parameters to track your key metrics
+        //       Use your own string attributes to track common values over time
+        //       Use your own number attributes to track median value over time
+        Answers.logCustomEventWithName("Tap Load More", customAttributes: ["Category":"Comedy", "Length":350])
     }
     
     @IBAction func onLoadMore(sender: AnyObject) {

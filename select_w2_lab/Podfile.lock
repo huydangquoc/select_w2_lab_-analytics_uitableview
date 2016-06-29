@@ -14,13 +14,20 @@ PODS:
   - AFNetworking/Serialization (3.1.0)
   - AFNetworking/UIKit (3.1.0):
     - AFNetworking/NSURLSession
+  - Answers (1.2.0):
+    - Fabric (~> 1.6.3)
+  - Fabric (1.6.7)
 
 DEPENDENCIES:
   - AFNetworking (~> 3.0)
+  - Answers
+  - Fabric
 
 SPEC CHECKSUMS:
   AFNetworking: 5e0e199f73d8626b11e79750991f5d173d1f8b67
+  Answers: f47bc44937ab00fe5a119b16df28e1d1aeadcf84
+  Fabric: caf7580c725e64db144f610ac65cd60956911dc7
 
-PODFILE CHECKSUM: 1b7446b6b81b651165689423dc0b4e8b03457b04
+PODFILE CHECKSUM: d59dc61b34063e9b7e5dc43f1b381df4344aaa1a
 
 COCOAPODS: 1.0.0

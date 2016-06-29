@@ -7,11 +7,13 @@
 //
 
 import UIKit
+import Answers
 
 class PersonDetailViewController: UIViewController {
 
     @IBOutlet weak var fullImageView: UIImageView!
     var person: Person?
+    var start: NSDate?
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -20,6 +22,23 @@ class PersonDetailViewController: UIViewController {
         fullImageView.setImageWithURL((person?.avatarImageURL)!)
     }
 
+    override func viewWillAppear(animated: Bool) {
+        start = NSDate()
+    }
+    
+    override func viewWillDisappear(animated: Bool) {
+        let end = NSDate()
+        let runTime = end.timeIntervalSinceDate(start!)
+        
+        let name = person?.name ?? ""
+        let id = person?.id ?? 0
+        
+        Answers.logContentViewWithName("Detail of \(name)",
+                                       contentType: "Person Detail View",
+                                       contentId: "\(id)",
+                                       customAttributes: ["Duration": runTime])
+    }
+    
     override func didReceiveMemoryWarning() {
         super.didReceiveMemoryWarning()
         // Dispose of any resources that can be recreated.
