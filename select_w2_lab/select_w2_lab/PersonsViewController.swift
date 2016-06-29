@@ -8,12 +8,13 @@
 
 import UIKit
 import Answers
+import Optimizely
 
 class PersonsViewController: UIViewController {
 
     var persons: [Person]?
     var offset = 0
-    let limit = 2
+    var limit: Int = Optimizely.numberForKey(limitLiveVar).integerValue
     
     @IBOutlet weak var tableView: UITableView!
     @IBOutlet weak var loadMoreButton: UIButton!
@@ -26,7 +27,10 @@ class PersonsViewController: UIViewController {
         tableView.dataSource = self
         tableView.delegate = self
         tableView.tableFooterView = UIView()
-        
+    
+        Optimizely.registerCallbackForVariableWithKey(limitLiveVar) { (key: String!, id: AnyObject!) in
+            self.limit = Optimizely.numberForKey(limitLiveVar).integerValue
+        }
         loadMoreButton.addTarget(self, action: #selector(self.userTapLoadMore), forControlEvents: .TouchUpInside)
         
         loadMoreButton.enabled = false
